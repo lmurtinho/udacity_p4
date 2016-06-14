@@ -22,13 +22,20 @@ class LearningAgent(Agent):
         inputs = self.env.sense(self)
         deadline = self.env.get_deadline(self)
 
-        # TODO: Update state
+        # The next best move is given by the planner
+        action = self.next_waypoint
         
-        # TODO: Select action according to your policy
-        if inputs['light'] == 'red':       
+        # On a red light, the agent can only turn right, and even so only if:
+        # - no oncoming traffic is going left
+        # - no traffic from the left is going forward
+        if inputs['light'] == 'red':
+            if (action != 'right') or (inputs['oncoming'] == 'left') or (inputs['left'] == 'forward'):
+                action = None
+        
+        # On a green light, the agent cannot turn left if there is
+        # oncoming traffic going forward
+        elif inputs['oncoming'] == 'forward':
             action = None
-        else:
-            action = self.next_waypoint
 
         # Execute action and get reward
         reward = self.env.act(self, action)
