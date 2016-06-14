@@ -21,6 +21,10 @@ class LearningAgent(Agent):
         self.next_waypoint = self.planner.next_waypoint()  # from route planner, also displayed by simulator
         inputs = self.env.sense(self)
         deadline = self.env.get_deadline(self)
+        
+        # update state
+        self.state = (inputs['light'], inputs['oncoming'], inputs['left'],
+                      self.next_waypoint, deadline)
 
         # Do something random
         action = random.choice(['forward', 'left', 'right', None])
@@ -29,7 +33,6 @@ class LearningAgent(Agent):
         reward = self.env.act(self, action)
 
         # TODO: Learn policy based on state, action, reward
-
         print "LearningAgent.update(): deadline = {}, inputs = {}, action = {}, reward = {}".format(deadline, inputs, action, reward)  # [debug]
         
 
