@@ -25,7 +25,10 @@ class LearningAgent(Agent):
         # TODO: Update state
         
         # TODO: Select action according to your policy
-        action = self.next_waypoint
+        if inputs['light'] == 'red':       
+            action = None
+        else:
+            action = self.next_waypoint
 
         # Execute action and get reward
         reward = self.env.act(self, action)
