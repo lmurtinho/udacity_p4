@@ -34,7 +34,7 @@ class LearningAgent(Agent):
         
         # On a green light, the agent cannot turn left if there is
         # oncoming traffic going forward
-        elif inputs['oncoming'] == 'forward':
+        elif (inputs['oncoming'] == 'forward') and (action == 'left'):
             action = None
 
         # Execute action and get reward
