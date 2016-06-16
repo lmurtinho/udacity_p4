@@ -180,11 +180,13 @@ class Environment(object):
                 #if self.bounds[0] <= location[0] <= self.bounds[2] and self.bounds[1] <= location[1] <= self.bounds[3]:  # bounded
                 state['location'] = location
                 state['heading'] = heading
-                reward = 2 if action == agent.get_next_waypoint() else 0.5
+                reward = 2 if action == agent.get_next_waypoint() else - 0.5
             else:
                 reward = -1
-        else:
+        elif light == 'red':
             reward = 1
+        else:
+            reward = - 0.5
 
         if agent is self.primary_agent:
             if state['location'] == state['destination']:
