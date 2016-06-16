@@ -24,7 +24,7 @@ class LearningAgent(Agent):
         
         # update state
         self.state = (inputs['light'], inputs['oncoming'], inputs['left'],
-                      self.next_waypoint, deadline)
+                      self.next_waypoint)
 
         # Do something random
         action = random.choice(['forward', 'left', 'right', None])
